@@ -1,6 +1,7 @@
 // db.cpp
 #include "db.h"
 
+// initialize the instance variable
 Database* Database::instance = nullptr; 
 
 void Database::resetInstance() {
