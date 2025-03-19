@@ -86,7 +86,7 @@ class Database{
             if(!ptr) {
                 throw std::bad_alloc(); 
             }
-            std::cout << " overloaded new "; 
+            std::cout << "overloaded new "; 
             return ptr; 
         }
         
@@ -94,7 +94,7 @@ class Database{
         //ToDo
         void operator delete(void* ptr) {
             free(ptr); 
-            std::cout << "overloaded delete"; 
+            std::cout << "overloaded delete "; 
         }
 
         //set_username and get_username for username
