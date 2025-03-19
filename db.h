@@ -67,26 +67,37 @@ class Database{
             }        
         }
 
-        // retrun status of connected true/false (return bool)
+        // return status of connected true/false (return bool)
         //ToDo
 
         //overload the new operator that allocates memory using malloc of given size and returns pointer of type void and prints " overloaded new " (cout is okay in this case). std::cout << "overloaded new ";
         //If the memory allocation fails it should throw std::bad_alloc()
         //ToDo
         
-
-
         //overload the delete operator that deallocates memory and prints "overloaded delete " (cout is okay in this). std::cout << "overloaded delete ";
         //ToDo
 
         //set_username and get_username for username
         //ToDo
         //ToDo
+        void set_username(const std::string& uname) {
+            username = uname; 
+        }
+
+        std::string get_username() {
+            return username; 
+        }
 
         //set_password and get_password for password.
         //ToDo
         //ToDo
+        void set_password(const std::string& pword) {
+            password= pword; 
+        }
 
+        std::string get_password() {
+            return password; 
+        }
         //The static "resetInstance" as defined below.
         static void resetInstance();
 };
