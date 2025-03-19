@@ -1,7 +1,9 @@
 #ifndef DB_H
 #define DB_H
 
+#include <iostream>
 #include <string>
+#include <stdexcept>
 
 class Database{
     private: 
@@ -35,7 +37,7 @@ class Database{
         //destructor that disconnects the connection if connected.
         //ToDo
         ~Database() {
-            if(connect) {
+            if(connected) {
                 disconnect(); 
             } 
         } 
@@ -43,12 +45,15 @@ class Database{
     public: 
         //"getInstance" that creates and returns the instance of the database (Database*). If called first time it sets the username and password. However, subsequent time, it matches the database name, username and password and returns the previous instance if matched else it throws std::runtime_error("invalid database name, username or password"). We are using Singleton Design Pattern that creates only one instance of the databse. The instance is still created by the constructor.
         //ToDo
-        static Database& getInstance(const std::string& dname, const std::string& uname, const std::string& pword) {
+        static Database* getInstance(const std::string& dname, const std::string& uname, const std::string& pword) {
             if(nullptr == instance) {
                 instance = new Database(dname, uname, pword); 
             }
+            else if(instance->db != dname || instance->username != uname || instance->password != pword) {
+                throw std::runtime_error("invalid database name, username or password"); 
+            }
             
-            return *instance; 
+            return instance; 
         }
 
         //"connect" that sets "connected" to true (return void)
@@ -69,13 +74,28 @@ class Database{
 
         // return status of connected true/false (return bool)
         //ToDo
+        bool isConnected() const {
+            return connected; 
+        }
 
         //overload the new operator that allocates memory using malloc of given size and returns pointer of type void and prints " overloaded new " (cout is okay in this case). std::cout << "overloaded new ";
         //If the memory allocation fails it should throw std::bad_alloc()
         //ToDo
+        void* operator new(size_t size) {
+            void* ptr = malloc(size); 
+            if(!ptr) {
+                throw std::bad_alloc(); 
+            }
+            std::cout << " overloaded new "; 
+            return ptr; 
+        }
         
         //overload the delete operator that deallocates memory and prints "overloaded delete " (cout is okay in this). std::cout << "overloaded delete ";
         //ToDo
+        void operator delete(void* ptr) {
+            free(ptr); 
+            std::cout << "overloaded delete"; 
+        }
 
         //set_username and get_username for username
         //ToDo
